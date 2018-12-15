@@ -1,4 +1,5 @@
-SourceCode
-==========
+Text Document Interface
+=======================
 
-Common interface for source code classes in Phpactor.
+Common interface for objects representing source code or other types of text
+document in [phpactor](https://phpactor/phpactor).
