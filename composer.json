@@ -1,6 +1,6 @@
 {
-    "name": "phpactor/source-code",
-    "description": "Shared Source Code Objet",
+    "name": "phpactor/source-code-interface",
+    "description": "Common Interface for a Source Code Object",
     "license": "MIT",
     "authors": [
         {
@@ -9,25 +9,11 @@
         }
     ],
     "require": {
-    },
-    "require-dev": {
-        "phpstan/phpstan": "^0.10.6",
-        "phpunit/phpunit": "^7.5",
-        "friendsofphp/php-cs-fixer": "^2.13"
+        "php": "^7.1"
     },
     "autoload": {
         "psr-4": {
             "Phpactor\\SourceCode\\": "lib/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Phpactor\\SourceCode\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.1.x-dev"
         }
     }
 }
