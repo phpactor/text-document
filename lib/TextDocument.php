@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpactor\SourceCode;
+namespace Phpactor\TextDocument;
 
 /**
  * Represents source code or other text documents.
@@ -13,7 +13,13 @@ interface TextDocument
     public function __toString();
 
     /**
-     * Return the URI to the document or NULL
+     * Return the URI to the document or NULL if the document has not been
+     * persisted yet.
      */
     public function uri(): ?string;
+
+    /**
+     * Return a language identifier, e.g. php, gherkin.
+     */
+    public function language(): ?string;
 }
