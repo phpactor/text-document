@@ -1,6 +1,6 @@
 {
     "name": "phpactor/text-document",
-    "description": "Common Interface for an object representing a text document",
+    "description": "Collection of value objects for representing and referencing text documents",
     "license": "MIT",
     "authors": [
         {
