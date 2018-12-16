@@ -12,9 +12,8 @@ class TextDocumentUri
      */
     private $uri;
 
-    public function __construct(string $uri)
+    final private function __construct()
     {
-        $this->uri = $uri;
     }
 
     public static function create(string $uri): self
@@ -25,7 +24,10 @@ class TextDocumentUri
             ));
         }
 
-        return new self($uri);
+        $new = new self();
+        $new->uri = $uri;
+
+        return $new;
     }
 
     public function __toString(): string

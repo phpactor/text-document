@@ -14,7 +14,7 @@ class StandardTextDocumentTest extends TestCase
 
     public function testCreate()
     {
-        $doc = StandardTextDocument::create(self::EXAMPLE_TEXT, self::EXAMPLE_URI);
+        $doc = StandardTextDocument::fromLanguageAndText('php', self::EXAMPLE_TEXT, self::EXAMPLE_URI);
         $this->assertEquals(self::EXAMPLE_URI, $doc->uri());
         $this->assertEquals(self::EXAMPLE_TEXT, $doc->__toString());
     }

@@ -3,6 +3,7 @@
 namespace Phpactor\TextDocument\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use Phpactor\TextDocument\Exception\InvalidUriException;
 use Phpactor\TextDocument\TextDocumentUri;
 
 class TextDocumentUriTest extends TestCase
@@ -16,6 +17,6 @@ class TextDocumentUriTest extends TestCase
     public function testExceptionOnNonAbsolutePath()
     {
         $this->expectException(InvalidUriException::class);
-        TextDocumentUri::fromString('i is relative');
+        TextDocumentUri::create('i is relative');
     }
 }

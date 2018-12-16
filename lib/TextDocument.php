@@ -19,4 +19,9 @@ interface TextDocument
      * persisted yet.
      */
     public function uri(): ?TextDocumentUri;
+
+    /**
+     * Return language value object for the text document.
+     */
+    public function language(): TextDocumentLanguage;
 }
