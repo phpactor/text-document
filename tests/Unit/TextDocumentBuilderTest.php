@@ -3,9 +3,7 @@
 namespace Phpactor\TextDocument\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Phpactor\TextDocument\Exception\InvalidUriException;
 use Phpactor\TextDocument\Exception\TextDocumentNotFound;
-use Phpactor\TextDocument\StandardTextDocument;
 use Phpactor\TextDocument\TextDocumentBuilder;
 
 class TextDocumentBuilderTest extends TestCase

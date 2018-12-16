@@ -2,12 +2,6 @@
 
 namespace Phpactor\TextDocument;
 
-use Phpactor\TextDocument\Exception\InvalidUriException;
-use Phpactor\TextDocument\Exception\TextDocumentNotFound;
-use RuntimeException;
-use Webmozart\PathUtil\Path;
-use Phpactor\TextDocument\TextDocumentUri;
-
 class StandardTextDocument implements TextDocument
 {
     /**
@@ -29,8 +23,7 @@ class StandardTextDocument implements TextDocument
         TextDocumentLanguage $language,
         string $text,
         ?TextDocumentUri $uri = null
-    )
-    {
+    ) {
         $this->text = $text;
         $this->uri = $uri;
         $this->language = $language;

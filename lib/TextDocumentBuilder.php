@@ -39,13 +39,15 @@ final class TextDocumentBuilder
 
         if (!file_exists($uri)) {
             throw new TextDocumentNotFound(sprintf(
-                'Text Document not found at URI "%s"', $uri
+                'Text Document not found at URI "%s"',
+                $uri
             ));
         }
 
         if (!is_readable($uri)) {
             throw new RuntimeException(sprintf(
-                'Could not read file at URI "%s"', $uri
+                'Could not read file at URI "%s"',
+                $uri
             ));
         }
 

@@ -2,8 +2,6 @@
 
 namespace Phpactor\TextDocument;
 
-use Phpactor\TextDocument\TextDocumentUri;
-
 /**
  * Represents source code or other text documents.
  */

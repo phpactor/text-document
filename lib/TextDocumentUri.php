@@ -20,7 +20,8 @@ class TextDocumentUri
     {
         if (false === Path::isAbsolute($uri)) {
             throw new InvalidUriException(sprintf(
-                'URI must be absolute, got "%s"', $uri
+                'URI must be absolute, got "%s"',
+                $uri
             ));
         }
 
