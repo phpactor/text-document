@@ -17,9 +17,4 @@ interface TextDocument
      * persisted yet.
      */
     public function uri(): ?string;
-
-    /**
-     * Return a language identifier, e.g. php, gherkin.
-     */
-    public function language(): ?string;
 }
