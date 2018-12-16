@@ -37,13 +37,13 @@ final class TextDocumentBuilder
     {
         $uri = TextDocumentUri::fromString($uri);
 
-        if (!file_exists((string) $uri)) {
+        if (!file_exists($uri)) {
             throw new TextDocumentNotFound(sprintf(
                 'Text Document not found at URI "%s"', $uri
             ));
         }
 
-        if (!is_readable((string) $uri)) {
+        if (!is_readable($uri)) {
             throw new RuntimeException(sprintf(
                 'Could not read file at URI "%s"', $uri
             ));
