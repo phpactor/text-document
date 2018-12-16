@@ -16,7 +16,7 @@ class TextDocumentUri
     {
     }
 
-    public static function create(string $uri): self
+    public static function fromString(string $uri): self
     {
         if (false === Path::isAbsolute($uri)) {
             throw new InvalidUriException(sprintf(

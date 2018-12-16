@@ -17,9 +17,14 @@ class TextDocumentLanguage
         $this->language = $language;
     }
 
-    public static function create(string $language = self::LANGUAGE_UNDEFINED): self
+    public static function fromString(string $language): self
     {
         return new self($language);
+    }
+
+    public static function undefined(): self
+    {
+        return new self(self::LANGUAGE_UNDEFINED);
     }
 
     public function is(string $language)

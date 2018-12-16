@@ -10,13 +10,13 @@ class TextDocumentUriTest extends TestCase
 {
     public function testCreate()
     {
-        $uri = TextDocumentUri::create(__FILE__);
+        $uri = TextDocumentUri::fromString(__FILE__);
         $this->assertEquals(__FILE__, (string) $uri);
     }
 
     public function testExceptionOnNonAbsolutePath()
     {
         $this->expectException(InvalidUriException::class);
-        TextDocumentUri::create('i is relative');
+        TextDocumentUri::fromString('i is relative');
     }
 }
