@@ -6,6 +6,7 @@ use Phpactor\TextDocument\Exception\InvalidUriException;
 use Phpactor\TextDocument\Exception\TextDocumentNotFound;
 use RuntimeException;
 use Webmozart\PathUtil\Path;
+use Phpactor\TextDocument\TextDocumentUri;
 
 class StandardTextDocument implements TextDocument
 {
@@ -15,11 +16,11 @@ class StandardTextDocument implements TextDocument
     private $text;
 
     /**
-     * @var string
+     * @var TextDocumentUri
      */
     private $uri;
 
-    private function __construct(string $text, ?string $uri = null)
+    private function __construct(string $text, ?TextDocumentUri $uri = null)
     {
         $this->text = $text;
         $this->uri = $uri;
@@ -36,31 +37,29 @@ class StandardTextDocument implements TextDocument
     /**
      * {@inheritDoc}
      */
-    public function uri(): ?string
+    public function uri(): ?TextDocumentUri
     {
         return $this->uri;
     }
 
     public static function create(string $text, ?string $uri = null): self
     {
+        $uri = TextDocumentUri::create($uri);
+
         return new self($text, $uri);
     }
 
-    public static function fromUri(string $uri): self
+    public static function fromUri(string $uri)
     {
-        if (false === Path::isAbsolute($uri)) {
-            throw new InvalidUriException(sprintf(
-                'URI must be absolute, got "%s"', $uri
-            ));
-        }
+        $uri = TextDocumentUri::create($uri);
 
-        if (!file_exists($uri)) {
+        if (!file_exists((string) $uri)) {
             throw new TextDocumentNotFound(sprintf(
                 'Text Document not found at URI "%s"', $uri
             ));
         }
 
-        if (!is_readable($uri)) {
+        if (!is_readable((string) $uri)) {
             throw new RuntimeException(sprintf(
                 'Could not read file at URI "%s"', $uri
             ));

@@ -26,12 +26,6 @@ class StandardTextDocumentTest extends TestCase
         $this->assertEquals(file_get_contents(__FILE__), $doc->__toString());
     }
 
-    public function testExceptionOnNonAbsolutePath()
-    {
-        $this->expectException(InvalidUriException::class);
-        StandardTextDocument::fromUri('i is relative');
-    }
-
     public function testExceptionOnNotExists()
     {
         $this->expectException(TextDocumentNotFound::class);

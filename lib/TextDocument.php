@@ -2,6 +2,8 @@
 
 namespace Phpactor\TextDocument;
 
+use Phpactor\TextDocument\TextDocumentUri;
+
 /**
  * Represents source code or other text documents.
  */
@@ -16,5 +18,5 @@ interface TextDocument
      * Return the URI to the document or NULL if the document has not been
      * persisted yet.
      */
-    public function uri(): ?string;
+    public function uri(): ?TextDocumentUri;
 }
