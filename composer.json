@@ -1,5 +1,5 @@
 {
-    "name": "phpactor/text-document-interface",
+    "name": "phpactor/text-document",
     "description": "Common Interface for an object representing a text document",
     "license": "MIT",
     "authors": [
