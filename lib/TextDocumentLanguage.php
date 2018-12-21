@@ -27,9 +27,14 @@ class TextDocumentLanguage
         return new self(self::LANGUAGE_UNDEFINED);
     }
 
-    public function is(string $language)
+    public function is(string $language): bool
     {
         return $this->language === strtolower($language);
+    }
+
+    public function in(array $languages): bool
+    {
+        return in_array($this->language, $languages);
     }
 
     public function isDefined(): bool

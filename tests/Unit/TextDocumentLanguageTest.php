@@ -16,6 +16,8 @@ class TextDocumentLanguageTest extends TestCase
         $this->assertTrue($language->is('php'));
         $this->assertTrue($language->is('PHP'));
         $this->assertFalse($language->is('french'));
+        $this->assertTrue($language->in(['php', 'cobol']));
+        $this->assertFalse($language->in(['c', 'cobol']));
     }
 
     public function testCreateUndefined()
