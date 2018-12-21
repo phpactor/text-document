@@ -2,19 +2,16 @@
 
 namespace Phpactor\TextDocument\Util;
 
-use Phpactor\TextDocument\ByteOffset;
-use Phpactor\TextDocument\TextDocument;
-
-class WordAtOffset
+final class WordAtOffset
 {
     /**
-     * @var array
+     * @var string
      */
-    private $breakingPattern;
+    private $splitPattern;
 
-    public function __construct(array $breakingPattern = [])
+    public function __construct(string $splitPattern = '\s|\\\|%|\(|\)|\[|\]|:|\r|\r\n|\n')
     {
-        $this->breakingPattern = '\s|\\\|%|\(|\)|\[|\]|:|\r|\r\n|\n';
+        $this->splitPattern = $splitPattern;
     }
 
     public function __invoke(string $text, int $offset)
@@ -22,7 +19,7 @@ class WordAtOffset
         $chars = [];
         $offset--;
         $originalOffset = $offset;
-        $text = preg_split('{(' . $this->breakingPattern . ')}', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $text = preg_split('{(' . $this->splitPattern . ')}', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
 
         $start = 0;
         foreach ($text as $chunk) {
