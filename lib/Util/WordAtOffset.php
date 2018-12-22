@@ -18,15 +18,12 @@ final class WordAtOffset
 
     public function __invoke(string $text, int $byteOffset): string
     {
-        $chars = [];
-        $byteOffset--;
-        $originalOffset = $byteOffset;
-        $text = preg_split('{(' . $this->splitPattern . ')}', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $chunks = preg_split('{(' . $this->splitPattern . ')}', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
 
         $start = 0;
-        foreach ($text as $chunk) {
+        foreach ($chunks as $chunk) {
             $end = $start + strlen($chunk);
-            if ($byteOffset < $end && $byteOffset >= $start) {
+            if ($byteOffset >= $start && $byteOffset < $end ) {
                 return $chunk;
             }
             $start = $end;

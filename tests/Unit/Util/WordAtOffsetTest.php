@@ -15,7 +15,7 @@ class WordAtOffsetTest extends TestCase
     {
         [ $text, $offset ] = ExtractOffset::fromSource($text);
 
-        $this->assertEquals($expectedWord, (new WordAtOffset())($text, $offset));
+        $this->assertEquals($expectedWord, (new WordAtOffset())($text, --$offset));
     }
 
     public function provideWordAtOffset()
@@ -40,6 +40,10 @@ class WordAtOffsetTest extends TestCase
         yield [
             "hello this is\nsom<>ething",
             'something',
+        ];
+        yield [
+            " <>  hello this is\nsom<>ething",
+            ' ',
         ];
     }
 }
