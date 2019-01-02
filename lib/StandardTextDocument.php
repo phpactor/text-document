@@ -10,7 +10,7 @@ class StandardTextDocument implements TextDocument
     private $text;
 
     /**
-     * @var TextDocumentUri
+     * @var TextDocumentUri|null
      */
     private $uri;
 

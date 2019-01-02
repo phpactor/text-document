@@ -55,7 +55,16 @@ final class TextDocumentBuilder
             $language = Path::getExtension((string) $uri);
         }
 
-        $new = new self(file_get_contents($uri));
+        $contents = file_get_contents($uri);
+
+        if (false === $contents) {
+            throw new RuntimeException(sprintf(
+                'Could not read file at URI "%s"',
+                $uri
+            ));
+        }
+
+        $new = new self($contents);
         $new->uri = $uri;
         $new->language = TextDocumentLanguage::fromString($language);
 

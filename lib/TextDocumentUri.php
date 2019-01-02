@@ -29,7 +29,8 @@ class TextDocumentUri
 
         if (!isset($components['path'])) {
             throw new InvalidUriException(sprintf(
-                'URI "%s" has no path component', $uri
+                'URI "%s" has no path component',
+                $uri
             ));
         }
 

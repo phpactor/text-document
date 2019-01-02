@@ -3,6 +3,7 @@
 namespace Phpactor\TextDocument\Util;
 
 use OutOfBoundsException;
+use RuntimeException;
 
 final class WordAtOffset
 {
@@ -20,10 +21,16 @@ final class WordAtOffset
     {
         $chunks = preg_split('{(' . $this->splitPattern . ')}', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
 
+        if (false === $chunks) {
+            throw new RuntimeException(
+                'Failed to preg-split text into chunks'
+            );
+        }
+
         $start = 0;
         foreach ($chunks as $chunk) {
             $end = $start + strlen($chunk);
-            if ($byteOffset >= $start && $byteOffset < $end ) {
+            if ($byteOffset >= $start && $byteOffset < $end) {
                 return $chunk;
             }
             $start = $end;
