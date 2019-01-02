@@ -10,14 +10,29 @@ class TextDocumentUri
     /**
      * @var string
      */
-    private $uri;
+    private $scheme;
 
-    final private function __construct()
+    /**
+     * @var string
+     */
+    private $path;
+
+    final private function __construct(string $scheme, string $path)
     {
+        $this->scheme = $scheme;
+        $this->path = $path;
     }
 
     public static function fromString(string $uri): self
     {
+        $components = parse_url($uri);
+
+        if (!isset($components['path'])) {
+            throw new InvalidUriException(sprintf(
+                'URI "%s" has no path component', $uri
+            ));
+        }
+
         if (false === Path::isAbsolute($uri)) {
             throw new InvalidUriException(sprintf(
                 'URI must be absolute, got "%s"',
@@ -25,14 +40,24 @@ class TextDocumentUri
             ));
         }
 
-        $new = new self();
-        $new->uri = $uri;
-
-        return $new;
+        return new self(
+            $components['scheme'] ?? 'file',
+            $components['path']
+        );
     }
 
     public function __toString(): string
     {
-        return $this->uri;
+        return sprintf('%s://%s', $this->scheme, $this->path);
+    }
+
+    public function path(): string
+    {
+        return $this->path;
+    }
+
+    public function scheme(): string
+    {
+        return $this->scheme;
     }
 }

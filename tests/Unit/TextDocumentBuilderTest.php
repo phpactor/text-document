@@ -9,12 +9,12 @@ use Phpactor\TextDocument\TextDocumentBuilder;
 class TextDocumentBuilderTest extends TestCase
 {
     const EXAMPLE_TEXT = 'hello world';
-    const EXAMPLE_URI = '/path/to';
+    const EXAMPLE_URI = 'file:///path/to';
 
     public function testCreate()
     {
         $doc = TextDocumentBuilder::create(self::EXAMPLE_TEXT)->language('php')->uri(self::EXAMPLE_URI)->build();
-        $this->assertEquals(self::EXAMPLE_URI, $doc->uri());
+        $this->assertEquals(self::EXAMPLE_URI, $doc->uri()->__toString());
         $this->assertEquals(self::EXAMPLE_TEXT, $doc->__toString());
         $this->assertEquals('php', $doc->language());
     }
