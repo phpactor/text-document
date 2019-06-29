@@ -7,12 +7,15 @@ use RuntimeException;
 
 final class WordAtOffset
 {
+    const SPLIT_WORD = '\s|;|\\\|%|\(|\)|\[|\]|:|\r|\r\n|\n';
+    const SPLIT_QUALIFIED_PHP_NAME = '\s|;|%|\(|\)|\[|\]|:|\r|\r\n|\n';
+
     /**
      * @var string
      */
     private $splitPattern;
 
-    public function __construct(string $splitPattern = '\s|\\\|%|\(|\)|\[|\]|:|\r|\r\n|\n')
+    public function __construct(string $splitPattern = self::SPLIT_WORD)
     {
         $this->splitPattern = $splitPattern;
     }
