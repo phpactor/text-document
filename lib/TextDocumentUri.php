@@ -25,6 +25,7 @@ class TextDocumentUri
 
     public static function fromString(string $uri): self
     {
+        /** @var array $components */
         $components = parse_url($uri);
 
         if (!isset($components['path'])) {
