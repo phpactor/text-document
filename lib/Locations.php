@@ -5,6 +5,7 @@ namespace Phpactor\TextDocument;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use RuntimeException;
 
 class Locations implements IteratorAggregate, Countable
 {

@@ -4,6 +4,7 @@ namespace Phpactor\TextDocument\Util;
 
 use OutOfBoundsException;
 use Phpactor\TextDocument\LineCol;
+use RuntimeException;
 
 class LineColFromOffset
 {
@@ -31,7 +32,6 @@ class LineColFromOffset
             if ($byteOffset >= $start && $byteOffset < $end) {
                 $section = substr($document, $start, $byteOffset - $start);
                 return new LineCol($lineNo, mb_strlen($section));
-
             }
 
             $start = $end;
@@ -41,7 +41,7 @@ class LineColFromOffset
         throw new OutOfBoundsException(sprintf(
             'Byte offset %s is larger than text length %s',
             $byteOffset,
-            strlen($text)
+            strlen($document)
         ));
     }
 }

@@ -5,6 +5,7 @@ namespace Phpactor\TextDocument\Tests\Unit;
 use PHPUnit\Framework\TestCase;
 use Phpactor\TextDocument\Location;
 use Phpactor\TextDocument\Locations;
+use RuntimeException;
 
 class LocationsTest extends TestCase
 {
@@ -24,5 +25,13 @@ class LocationsTest extends TestCase
             Location::fromPathAndOffset('/path/to.php', 13)
         ]);
         $this->assertEquals(2, $locations->count());
+    }
+
+    public function testExceptionIfFirstNotAvailable()
+    {
+        $this->expectException(RuntimeException::class);
+        $locations = new Locations([
+        ]);
+        $locations->first();
     }
 }

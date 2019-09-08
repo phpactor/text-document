@@ -2,6 +2,7 @@
 
 namespace Phpactor\TextDocument\Tests\Unit\Util;
 
+use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 use Phpactor\TextDocument\Util\LineColFromOffset;
 
@@ -15,7 +16,6 @@ class LineColFromOffsetTest extends TestCase
         $lineCol = (new LineColFromOffset())($document, $offset);
         $this->assertEquals($expectedLine, $lineCol->line(), 'line no');
         $this->assertEquals($expectedCol, $lineCol->col(), 'col no');
-
     }
 
     public function provideLineColFromOffset()
@@ -60,5 +60,11 @@ EOT
             4,
             2
         ];
+    }
+
+    public function testExceptionWhenOutOfBounds()
+    {
+        $this->expectException(OutOfBoundsException::class);
+        $lineCol = (new LineColFromOffset())('asd', 10);
     }
 }
