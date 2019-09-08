@@ -16,4 +16,13 @@ class LocationsTest extends TestCase
         ]);
         $this->assertCount(2, $locations);
     }
+
+    public function testIsCountable()
+    {
+        $locations = new Locations([
+            Location::fromPathAndOffset('/path/to.php', 12),
+            Location::fromPathAndOffset('/path/to.php', 13)
+        ]);
+        $this->assertEquals(2, $locations->count());
+    }
 }
