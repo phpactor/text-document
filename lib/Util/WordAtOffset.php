@@ -30,7 +30,7 @@ final class WordAtOffset
             );
         }
 
-        $start = 0;
+        $start = 1;
         foreach ($chunks as $chunk) {
             $end = $start + strlen($chunk);
             if ($byteOffset >= $start && $byteOffset < $end) {
