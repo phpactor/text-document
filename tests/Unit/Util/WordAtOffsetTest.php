@@ -66,5 +66,10 @@ class WordAtOffsetTest extends TestCase
             'Foobar\Request',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
+        yield 'nullable type' => [
+            "?Reque<>st;",
+            'Request',
+            WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
+        ];
     }
 }
