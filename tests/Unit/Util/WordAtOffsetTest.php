@@ -71,5 +71,10 @@ class WordAtOffsetTest extends TestCase
             'Request',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
+        yield 'trailing comma' => [
+            "Reque<>st,",
+            'Request',
+            WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
+        ];
     }
 }
