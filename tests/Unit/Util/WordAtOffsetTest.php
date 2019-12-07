@@ -76,5 +76,10 @@ class WordAtOffsetTest extends TestCase
             'Request',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
+        yield 'pipe type separator' => [
+            "Reque<>st|null,",
+            'Request',
+            WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
+        ];
     }
 }
