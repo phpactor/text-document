@@ -26,6 +26,19 @@ class TextDocumentBuilderTest extends TestCase
         $this->assertEquals(file_get_contents(__FILE__), $doc->__toString());
     }
 
+    public function testFromTextDocument()
+    {
+        $doc = TextDocumentBuilder::fromTextDocument(
+            TextDocumentBuilder::create('foobar')
+                ->uri('file:///foobar/asd')
+                ->language('foo')->build()
+        )->build();
+
+        $this->assertEquals('foobar', $doc->__toString());
+        $this->assertEquals('file:///foobar/asd', $doc->uri()->__toString());
+        $this->assertEquals('foo', $doc->language()->__toString());
+    }
+
     public function testExceptionOnNotExists()
     {
         $this->expectException(TextDocumentNotFound::class);

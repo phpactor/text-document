@@ -9,12 +9,12 @@ use Webmozart\PathUtil\Path;
 final class TextDocumentBuilder
 {
     /**
-     * @var TextDocumentUri
+     * @var TextDocumentUri|null
      */
     private $uri;
 
     /**
-     * @var TextDocumentLanguage
+     * @var TextDocumentLanguage|null
      */
     private $language;
 
