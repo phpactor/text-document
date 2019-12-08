@@ -71,6 +71,15 @@ final class TextDocumentBuilder
         return $new;
     }
 
+    public static function fromTextDocument(TextDocument $document): self
+    {
+        $new = new self($document->__toString());
+        $new->uri = $document->uri();
+        $new->language = $document->language();
+
+        return $new;
+    }
+
     public function uri(string $uri): self
     {
         $this->uri = TextDocumentUri::fromString($uri);
@@ -81,6 +90,13 @@ final class TextDocumentBuilder
     public function language(string $language): self
     {
         $this->language = TextDocumentLanguage::fromString($language);
+
+        return $this;
+    }
+
+    public function text(string $text): self
+    {
+        $this->text = $text;
 
         return $this;
     }
