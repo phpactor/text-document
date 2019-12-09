@@ -8,7 +8,7 @@ use RuntimeException;
 final class WordAtOffset
 {
     const SPLIT_WORD = '\s|;|\\\|%|\(|\)|\[|\]|:|\r|\r\n|\n';
-    const SPLIT_QUALIFIED_PHP_NAME = '\?|\s|;|,|@|\||%|\(|\)|\[|\]|:|\r|\r\n|\n';
+    const SPLIT_QUALIFIED_PHP_NAME = '\?|\s|;|,|@|=|\||%|\(|\)|\[|\]|:|\r|\r\n|\n';
 
     /**
      * @var string
