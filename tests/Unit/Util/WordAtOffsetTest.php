@@ -86,5 +86,10 @@ class WordAtOffsetTest extends TestCase
             'Request',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
+        yield 'subannotations (removing equal)' => [
+             "* input=Re<>quest::class",
+            'Request',
+            WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
+        ];
     }
 }
