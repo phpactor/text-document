@@ -91,5 +91,10 @@ class WordAtOffsetTest extends TestCase
             'Request',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
+        yield 'templated type' => [
+             "array<Re<>quest>",
+            'Request',
+            WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
+        ];
     }
 }
