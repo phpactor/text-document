@@ -32,6 +32,9 @@ class TextDocumentLanguage
         return $this->language === strtolower($language);
     }
 
+    /**
+     * @param array<string> $languages
+     */
     public function in(array $languages): bool
     {
         return in_array($this->language, $languages);

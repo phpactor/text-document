@@ -29,7 +29,6 @@ class TextDocumentUriTest extends TestCase
     public function testExceptionOnNoPath()
     {
         $this->expectException(InvalidUriException::class);
-        $this->expectExceptionMessage('has no path');
         TextDocumentUri::fromString('file://');
     }
 

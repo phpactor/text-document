@@ -7,13 +7,19 @@ use Countable;
 use IteratorAggregate;
 use RuntimeException;
 
+/**
+ * @implements IteratorAggregate<Location>
+ */
 class Locations implements IteratorAggregate, Countable
 {
     /**
-     * @var array
+     * @var Location[]
      */
     private $locations = [];
 
+    /**
+     * @param Location[] $locations
+     */
     public function __construct(array $locations)
     {
         foreach ($locations as $location) {
@@ -22,21 +28,18 @@ class Locations implements IteratorAggregate, Countable
     }
 
     /**
-     * {@inheritDoc}
+     * @return ArrayIterator<int,Location>
      */
-    public function getIterator()
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->locations);
     }
 
-    private function add(Location $location)
+    private function add(Location $location): void
     {
         $this->locations[] = $location;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function count(): int
     {
         return count($this->locations);

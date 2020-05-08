@@ -25,8 +25,14 @@ class TextDocumentUri
 
     public static function fromString(string $uri): self
     {
-        /** @var array $components */
         $components = parse_url($uri);
+
+        if (false === $components) {
+            throw new InvalidUriException(sprintf(
+                'Could not parse_url "%s"',
+                $uri
+            ));
+        }
 
         if (!isset($components['path'])) {
             throw new InvalidUriException(sprintf(
