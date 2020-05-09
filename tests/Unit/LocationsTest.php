@@ -34,4 +34,19 @@ class LocationsTest extends TestCase
         ]);
         $locations->first();
     }
+
+    public function testAppendLocations()
+    {
+        $locations = new Locations([
+            Location::fromPathAndOffset('/path/to.php', 12),
+        ]);
+        $locations = $locations->append(new Locations([
+            Location::fromPathAndOffset('/path/to.php', 13),
+        ]));
+
+        self::assertEquals(new Locations([
+            Location::fromPathAndOffset('/path/to.php', 12),
+            Location::fromPathAndOffset('/path/to.php', 13)
+        ]), $locations);
+    }
 }

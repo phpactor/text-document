@@ -35,6 +35,16 @@ class Locations implements IteratorAggregate, Countable
         return new ArrayIterator($this->locations);
     }
 
+    public function append(Locations $locations): self
+    {
+        $newLocations = $this->locations;
+        foreach ($locations as $location) {
+            $newLocations[] = $location;
+        }
+
+        return new self($newLocations);
+    }
+
     private function add(Location $location): void
     {
         $this->locations[] = $location;
