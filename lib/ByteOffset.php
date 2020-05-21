@@ -31,4 +31,9 @@ class ByteOffset
     {
         return $this->offset;
     }
+
+    public function add(int $amount): self
+    {
+        return new self($this->offset + $amount);
+    }
 }

@@ -3,13 +3,15 @@
 
 namespace Phpactor\TextDocument;
 
+use OutOfRangeException;
+
 /**
  * This class is copied from the Tolerant Parser library.
  */
 class TextEdit
 {
     /**
-     * @var int
+     * @var ByteOffset
      */
     private $start;
 
@@ -23,8 +25,17 @@ class TextEdit
      */
     private $replacement;
 
-    private function __construct(int $start, int $length, string $content)
+    private function __construct(ByteOffset $start, int $length, string $content)
     {
+        if ($length < 0) {
+            throw new OutOfRangeException(sprintf(
+                'Text edit length cannot be less than 0, got "%s" (start: %s, content: %s)',
+                $length,
+                $start->toInt(),
+                $content
+            ));
+        }
+
         $this->start = $start;
         $this->length = $length;
         $this->replacement = $content;
@@ -32,15 +43,15 @@ class TextEdit
 
     public static function create(int $start, int $length, string $replacement): self
     {
-        return new self($start, $length, $replacement);
+        return new self(ByteOffset::fromInt($start), $length, $replacement);
     }
 
-    public function end(): int
+    public function end(): ByteOffset
     {
-        return $this->start + $this->length;
+        return $this->start->add($this->length);
     }
 
-    public function start(): int
+    public function start(): ByteOffset
     {
         return $this->start;
     }

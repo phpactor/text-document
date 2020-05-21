@@ -41,6 +41,13 @@ class TextDocumentUri
             ));
         }
 
+        if (isset($components['scheme']) && $components['scheme'] !== 'file') {
+            throw new InvalidUriException(sprintf(
+                'Only "file://" scheme is supported, got "%s"',
+                $components['scheme']
+            ));
+        }
+
         if (false === Path::isAbsolute($uri)) {
             throw new InvalidUriException(sprintf(
                 'URI must be absolute, got "%s"',
@@ -49,7 +56,7 @@ class TextDocumentUri
         }
 
         return new self(
-            $components['scheme'] ?? 'file',
+            'file',
             $components['path']
         );
     }

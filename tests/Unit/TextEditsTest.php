@@ -172,29 +172,23 @@ class TextEditsTest extends TestCase
             ]),
             'Text edit end',
         ];
+    }
 
-        yield 'out of bounds start is negative' => [
-            'hello',
-            TextEdits::fromTextEdits([
-                TextEdit::create(-1, 4, 'world'),
-            ]),
-            'Start cannot be < 0',
-        ];
+    public function testCreateOneConstructor(): void
+    {
+        self::assertInstanceOf(TextEdits::class, TextEdits::one(TextEdit::create(10, 10, 'f')));
+    }
 
-        yield 'out of bounds length is negative' => [
-            'hello',
-            TextEdits::fromTextEdits([
-                TextEdit::create(1, -4, 'world'),
-            ]),
-            'Length cannot be',
-        ];
+    public function testCreateNoneConstructor(): void
+    {
+        self::assertInstanceOf(TextEdits::class, TextEdits::none());
+    }
 
-        yield 'out of bounds length is negative' => [
-            'hello',
-            TextEdits::fromTextEdits([
-                TextEdit::create(1, -1, 'world'),
-            ]),
-            'Length cannot be',
-        ];
+    public function testAddTextEdit(): void
+    {
+        self::assertEquals(
+            TextEdits::none()->add(TextEdit::create(10, 10, 'asd')),
+            TextEdits::one(TextEdit::create(10, 10, 'asd'))
+        );
     }
 }

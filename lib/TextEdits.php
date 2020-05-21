@@ -72,37 +72,25 @@ class TextEdits implements IteratorAggregate
             $edit = $this->textEdits[$i];
             assert($edit instanceof TextEdit);
 
-            if ($prevEditStart < $edit->start() || $prevEditStart < $edit->start() + $edit->length()) {
+            if ($prevEditStart < $edit->start()->toInt() || $prevEditStart < $edit->end()->toInt()) {
                 throw new OutOfBoundsException(sprintf(
                     "Overlapping text edit:\n%s",
                     self::renderDebugTextEdits($edit, $this->textEdits)
                 ));
             }
-            if ($edit->start() < 0) {
-                throw new OutOfBoundsException(sprintf(
-                    'Start cannot be < 0: %s',
-                    self::renderDebugTextEdits($edit, $this->textEdits)
-                ));
-            }
 
-            if ($edit->length() < 0) {
-                throw new OutOfBoundsException(sprintf(
-                    'Length cannot be < 0 : %s',
-                    self::renderDebugTextEdits($edit, $this->textEdits)
-                ));
-            }
-
-            if ($edit->end() > \strlen($text)) {
+            if ($edit->end()->toInt() > \strlen($text)) {
                 throw new OutOfBoundsException(sprintf(
                     'Text edit end (%s) exceeds length of text (%s): %s',
-                    $edit->end(),
+                    $edit->end()->toInt(),
                     $edit->replacement(),
                     self::renderDebugTextEdits($edit, $this->textEdits)
                 ));
             }
-            $prevEditStart = $edit->start();
-            $head = \substr($text, 0, $edit->start());
-            $tail = \substr($text, $edit->start() + $edit->length());
+
+            $prevEditStart = $edit->start()->toInt();
+            $head = \substr($text, 0, $edit->start()->toInt());
+            $tail = \substr($text, $edit->end()->toInt());
             $text = $head . $edit->replacement() . $tail;
         }
 
@@ -123,8 +111,8 @@ class TextEdits implements IteratorAggregate
             return sprintf(
                 '%s%s %s "%s"',
                 $edit === $otherEdit ? '> ' : '  ',
-                $otherEdit->start(),
-                $otherEdit->start() + $otherEdit->length(),
+                $otherEdit->start()->toInt(),
+                $otherEdit->end()->toInt(),
                 str_replace("\n", '\n', $otherEdit->replacement())
             );
         }, $edits));
