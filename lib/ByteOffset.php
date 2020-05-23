@@ -27,6 +27,18 @@ class ByteOffset
         return new self($offset);
     }
 
+    /**
+     * @param int|ByteOffset $offset
+     */
+    public static function fromIntOrByteOffset($offset): self
+    {
+        if ($offset instanceof ByteOffset) {
+            return $offset;
+        }
+
+        return self::fromInt($offset);
+    }
+
     public function toInt(): int
     {
         return $this->offset;

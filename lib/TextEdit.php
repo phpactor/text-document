@@ -5,9 +5,6 @@ namespace Phpactor\TextDocument;
 
 use OutOfRangeException;
 
-/**
- * This class is copied from the Tolerant Parser library.
- */
 class TextEdit
 {
     /**
@@ -41,9 +38,12 @@ class TextEdit
         $this->replacement = $content;
     }
 
-    public static function create(int $start, int $length, string $replacement): self
+    /**
+     * @param int|ByteOffset $start
+     */
+    public static function create($start, int $length, string $replacement): self
     {
-        return new self(ByteOffset::fromInt($start), $length, $replacement);
+        return new self(ByteOffset::fromIntOrByteOffset($start), $length, $replacement);
     }
 
     public function end(): ByteOffset
