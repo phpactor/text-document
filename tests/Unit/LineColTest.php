@@ -26,41 +26,41 @@ class LineColTest extends TestCase
     {
         yield [
             '',
-            new LineCol(0, 0),
+            new LineCol(1, 1),
             0,
         ];
 
         yield [
             'a',
-            new LineCol(0, 1),
-            1,
+            new LineCol(1, 1),
+            0,
         ];
 
         yield 'new line' => [
             "\na",
-            new LineCol(1, 1),
-            2,
+            new LineCol(2, 1),
+            1,
         ];
 
         yield 'multi-byte 1' => [
-            "ᅑ",
-            new LineCol(0, 1),
+            "ᅑa",
+            new LineCol(1, 2),
             3,
             "ᅑ",
         ];
 
         yield 'multi-byte 2' => [
             "ᅑacd",
-            new LineCol(0, 2),
+            new LineCol(1, 3),
             4,
             "ᅑa"
         ];
 
         yield 'multi-byte 3' => [
             "ᅑ\nacd",
-            new LineCol(1, 2),
-            6,
-            "ᅑ\nac"
+            new LineCol(2, 2),
+            5,
+            "ᅑ\na"
         ];
     }
 }

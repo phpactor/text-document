@@ -2,8 +2,10 @@
 
 namespace Phpactor\TextDocument\Tests\Unit\Util;
 
+use Generator;
 use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
+use Phpactor\TextDocument\LineCol;
 use Phpactor\TextDocument\Util\LineColFromOffset;
 
 class LineColFromOffsetTest extends TestCase
@@ -11,41 +13,50 @@ class LineColFromOffsetTest extends TestCase
     /**
      * @dataProvider provideLineColFromOffset
      */
-    public function testLineColFromOffset(string $document, int $offset, int $expectedLine, int $expectedCol)
-    {
+    public function testLineColFromOffset(
+        string $document,
+        int $offset,
+        int $expectedLine,
+        int $expectedCol
+    ): void {
         $lineCol = (new LineColFromOffset())($document, $offset);
+        assert($lineCol instanceof LineCol);
         $this->assertEquals($expectedLine, $lineCol->line(), 'line no');
         $this->assertEquals($expectedCol, $lineCol->col(), 'col no');
+        $this->assertEquals($offset, $lineCol->toByteOffset($document)->toInt(), 'reverse to byte offset');
     }
 
-    public function provideLineColFromOffset()
+    /**
+     * @return Generator<mixed>
+     */
+    public function provideLineColFromOffset(): Generator
     {
-        yield [
+        yield 'hello 1' => [
             'hello',
-            1,
+            0,
             1,
             1
         ];
 
-        yield [
+        yield 'hello 2' => [
             'hello',
             2,
             1,
-            2
+            3
         ];
 
         yield 'multiline' => [
             "hello\ngoodbye",
             8,
             2,
-            2
+            3,
         ];
 
         yield '2 lines with special chars' => [
             "h转llo\ngoodbye",
             10,
             2,
-            2
+            3
         ];
 
         yield '4 lines with special chars' => [
@@ -58,7 +69,7 @@ EOT
         ,
             26,
             4,
-            2
+            3
         ];
     }
 

@@ -3,7 +3,7 @@
 namespace Phpactor\TextDocument;
 
 use OutOfBoundsException;
-use PHPUnit\Framework\MockObject\RuntimeException;
+use RuntimeException;
 
 /**
  * Value object for line / column position.
@@ -28,6 +28,18 @@ final class LineCol
 
     public function __construct(int $line, int $col)
     {
+        if ($line < 1) {
+            throw new RuntimeException(sprintf(
+                'Line number cannot be less than 1 (got "%s")',
+                $line
+            ));
+        }
+        if ($col < 1) {
+            throw new RuntimeException(sprintf(
+                'Col number cannot be less than 1 (got "%s")',
+                $col
+            ));
+        }
         $this->line = $line;
         $this->col = $col;
     }
@@ -42,7 +54,7 @@ final class LineCol
             );
         }
 
-        $lineNb = 0;
+        $lineNb = 1;
         $offset = 0;
         foreach ($linesAndDelims as $lineOrDelim) {
             $lineOrDelim = (string)$lineOrDelim;
@@ -56,7 +68,7 @@ final class LineCol
             if ($lineNb === $this->line()) {
                 return ByteOffset::fromInt(
                     $offset + (int)strlen(
-                        mb_substr($lineOrDelim, 0, $this->col())
+                        mb_substr($lineOrDelim, 0, $this->col() - 1)
                     )
                 );
             }
@@ -93,8 +105,13 @@ final class LineCol
             }
 
             if ($byteOffset->toInt() >= $start && $byteOffset->toInt() < $end) {
-                $section = substr($text, $start, $byteOffset->toInt() - $start);
-                return new self($lineNo, mb_strlen($section));
+                $section = substr(
+                    $text,
+                    $start,
+                    $byteOffset->toInt() - $start
+                );
+
+                return new self($lineNo, mb_strlen($section) + 1);
             }
 
             $start = $end;
