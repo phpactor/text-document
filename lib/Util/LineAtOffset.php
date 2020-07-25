@@ -3,10 +3,16 @@
 namespace Phpactor\TextDocument\Util;
 
 use OutOfBoundsException;
+use Phpactor\TextDocument\ByteOffset;
 use RuntimeException;
 
 final class LineAtOffset
 {
+    public static function lineAtByteOffset(string $text, ByteOffset $offset): string
+    {
+        return (new self())->__invoke($text, $offset->toInt());
+    }
+
     public function __invoke(string $text, int $byteOffset): string
     {
         $lines = preg_split("{(\r\n|\n|\r)}", $text, -1, PREG_SPLIT_DELIM_CAPTURE);
