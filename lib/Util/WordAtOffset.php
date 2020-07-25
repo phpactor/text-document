@@ -3,12 +3,13 @@
 namespace Phpactor\TextDocument\Util;
 
 use OutOfBoundsException;
+use Phpactor\TextUtils\WordAtOffset as PhpactorWordAtOffset;
 use RuntimeException;
 
 final class WordAtOffset
 {
-    const SPLIT_WORD = '\s|;|\\\|%|\(|\)|\[|\]|:|\r|\r\n|\n';
-    const SPLIT_QUALIFIED_PHP_NAME = '\?|\s|;|,|@|=|\||%|\(|\)|\[|\]|:|\r|\r\n|\n|<|>';
+    public const SPLIT_WORD = PhpactorWordAtOffset::SPLIT_WORD;
+    public const SPLIT_QUALIFIED_PHP_NAME = PhpactorWordAtOffset::SPLIT_QUALIFIED_PHP_NAME;
 
     /**
      * @var string
@@ -20,29 +21,11 @@ final class WordAtOffset
         $this->splitPattern = $splitPattern;
     }
 
+    /**
+     * @deprecated Use the TextUtils package.
+     */
     public function __invoke(string $text, int $byteOffset): string
     {
-        $chunks = preg_split('{(' . $this->splitPattern . ')}', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
-
-        if (false === $chunks) {
-            throw new RuntimeException(
-                'Failed to preg-split text into chunks'
-            );
-        }
-
-        $start = 1;
-        foreach ($chunks as $chunk) {
-            $end = $start + strlen($chunk);
-            if ($byteOffset >= $start && $byteOffset < $end) {
-                return $chunk;
-            }
-            $start = $end;
-        }
-
-        throw new OutOfBoundsException(sprintf(
-            'Byte offset %s is larger than text length %s',
-            $byteOffset,
-            strlen($text)
-        ));
+        return (new PhpactorWordAtOffset($this->splitPattern))->__invoke($text, $byteOffset);
     }
 }

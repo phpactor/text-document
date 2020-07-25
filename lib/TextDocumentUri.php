@@ -23,6 +23,9 @@ class TextDocumentUri
         $this->path = $path;
     }
 
+    /**
+     * From URI or unix path
+     */
     public static function fromString(string $uri): self
     {
         $components = parse_url($uri);
