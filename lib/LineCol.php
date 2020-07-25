@@ -5,6 +5,13 @@ namespace Phpactor\TextDocument;
 use OutOfBoundsException;
 use PHPUnit\Framework\MockObject\RuntimeException;
 
+/**
+ * Value object for line / column position.
+ *
+ * Lines and columns start with 1.
+ *
+ * The "a" in "abcd" would have line "1" and column "1".
+ */
 final class LineCol
 {
     private const NEWLINE_PATTERN = '\\r\\n|\\n|\\r';
