@@ -52,6 +52,13 @@ class LineColFromOffsetTest extends TestCase
             3,
         ];
 
+        yield 'multiline 2' => [
+            "12\n345\n678",
+            4,
+            2,
+            2
+        ];
+
         yield '2 lines with special chars' => [
             "h转llo\ngoodbye",
             10,

@@ -66,10 +66,13 @@ final class LineCol
             }
 
             if ($lineNb === $this->line()) {
+                $lineSection = mb_substr(
+                    $lineOrDelim,
+                    0,
+                    $this->col() - 1
+                );
                 return ByteOffset::fromInt(
-                    $offset + (int)strlen(
-                        mb_substr($lineOrDelim, 0, $this->col() - 1)
-                    )
+                    $offset + (int)strlen($lineSection)
                 );
             }
 
@@ -94,28 +97,32 @@ final class LineCol
             );
         }
 
-        $start = 0;
-        $linesLength = 0;
-        $lineNo = 0;
-        foreach ($lines as $index => $line) {
-            $end = $start + strlen($line);
+        $offset = 0;
+        $lineNb = 0;
+        foreach ($lines as $lineOrDelim) {
+            $lineOrDelim = (string)$lineOrDelim;
 
-            if (!preg_match('{^' . self::NEWLINE_PATTERN . '$}', $line)) {
-                $lineNo++;
+            if ((bool)preg_match('{(' . self::NEWLINE_PATTERN . ')}', (string)$lineOrDelim)) {
+                $offset += strlen($lineOrDelim);
+                continue;
             }
+            $lineNb++;
 
-            if ($byteOffset->toInt() >= $start && $byteOffset->toInt() < $end) {
+            $start = $offset;
+            $end = $offset + strlen($lineOrDelim);
+
+            // if the offset is in line...
+            if ($byteOffset->toInt() >= $start && $byteOffset->toInt() <= $end) {
                 $section = substr(
-                    $text,
-                    $start,
+                    $lineOrDelim,
+                    0,
                     $byteOffset->toInt() - $start
                 );
 
-                return new self($lineNo, mb_strlen($section) + 1);
+                return new self($lineNb, mb_strlen($section) + 1);
             }
 
-            $start = $end;
-            $linesLength += mb_strlen($line);
+            $offset = $end;
         }
 
         throw new OutOfBoundsException(sprintf(
