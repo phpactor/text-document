@@ -2,7 +2,6 @@
     "name": "phpactor/text-document",
     "description": "Collection of value objects for representing and referencing text documents",
     "license": "MIT",
-    "minimum-stability":"dev",
     "authors": [
         {
             "name": "Daniel Leech",
@@ -11,8 +10,7 @@
     ],
     "require": {
         "php": "^7.1",
-        "webmozart/path-util": "^2.3",
-        "phpactor/text-utils": "dev-master"
+        "webmozart/path-util": "^2.3"
     },
     "autoload": {
         "psr-4": {
