@@ -33,6 +33,10 @@ class LineAtOffsetTest extends TestCase
             'hello this is<>',
             'hello this is',
         ];
+        yield 'offset is newline' => [
+            "hello this is\n<>",
+            "hello this is",
+        ];
         yield [
             <<<'EOT'
 <?php
