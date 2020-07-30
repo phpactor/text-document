@@ -80,10 +80,11 @@ final class LineCol
         }
 
         throw new OutOfBoundsException(sprintf(
-            'Position %s:%s is larger than text length %s',
+            'Position %s:%s is larger than text length %s: %s',
             $this->line(),
             $this->col(),
-            strlen($text)
+            strlen($text),
+            $text
         ));
     }
 

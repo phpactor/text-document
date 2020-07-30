@@ -26,7 +26,7 @@ final class LineAtOffset
         $lastLine = '';
         foreach ($lines as $line) {
             $end = $start + strlen($line);
-            if ($byteOffset >= $start && $byteOffset < $end) {
+            if ($byteOffset >= $start && $byteOffset <= $end) {
                 if (preg_match('{^(\r\n|\n|\r)$}', $line)) {
                     return $lastLine;
                 }
