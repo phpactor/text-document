@@ -75,6 +75,6 @@ EOT
     public function testOutOfRange()
     {
         $this->expectException(OutOfBoundsException::class);
-        (new LineAtOffset())('a', 1);
+        (new LineAtOffset())('a', 2);
     }
 }
