@@ -2,6 +2,8 @@
     "name": "phpactor/text-document",
     "description": "Collection of value objects for representing and referencing text documents",
     "license": "MIT",
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Daniel Leech",
