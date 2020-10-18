@@ -10,7 +10,7 @@ use RuntimeException;
 /**
  * @implements IteratorAggregate<Location>
  */
-class Locations implements IteratorAggregate, Countable
+final class Locations implements IteratorAggregate, Countable
 {
     /**
      * @var Location[]
@@ -18,9 +18,9 @@ class Locations implements IteratorAggregate, Countable
     private $locations = [];
 
     /**
-     * @param Location[] $locations
+     * @param iterable<Location> $locations
      */
-    public function __construct(array $locations)
+    public function __construct(iterable $locations)
     {
         foreach ($locations as $location) {
             $this->add($location);
@@ -45,9 +45,11 @@ class Locations implements IteratorAggregate, Countable
         return new self($newLocations);
     }
 
-    private function add(Location $location): void
+    private function add(Location $location): self
     {
         $this->locations[] = $location;
+
+        return $this;
     }
 
     public function count(): int
@@ -64,5 +66,21 @@ class Locations implements IteratorAggregate, Countable
         }
 
         return reset($this->locations);
+    }
+
+    public function sorted(): self
+    {
+        $sortedLocations = $this->locations;
+
+        usort($sortedLocations, function (Location $first, Location $second) {
+            $order = strcmp((string) $first->uri(), (string) $second->uri());
+            if (0 !== $order) {
+                return $order;
+            }
+
+            return $first->offset()->toInt() - $second->offset()->toInt();
+        });
+
+        return new self($sortedLocations);
     }
 }
