@@ -70,7 +70,9 @@ final class Locations implements IteratorAggregate, Countable
 
     public function sorted(): self
     {
-        usort($this->locations, function (Location $first, Location $second) {
+        $sortedLocations = $this->locations;
+
+        usort($sortedLocations, function (Location $first, Location $second) {
             $order = strcmp((string) $first->uri(), (string) $second->uri());
             if (0 !== $order) {
                 return $order;
@@ -79,6 +81,6 @@ final class Locations implements IteratorAggregate, Countable
             return $first->offset()->toInt() - $second->offset()->toInt();
         });
 
-        return $this;
+        return new self($sortedLocations);
     }
 }

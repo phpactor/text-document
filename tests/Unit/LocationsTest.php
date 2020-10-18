@@ -53,16 +53,18 @@ class LocationsTest extends TestCase
     /**
      * @dataProvider provideUnsortedLocations
      *
-     * @param Location[] $unsortedLocations
-     * @param Location[] $sortedLocations
+     * @param Location[] $unsortedLocationsArray
+     * @param Location[] $sortedLocationsArray
      */
     public function testSortLocations(
-        array $unsortedLocations,
-        array $sortedLocations
+        array $unsortedLocationsArray,
+        array $sortedLocationsArray
     ): void {
-        $locations = new Locations($unsortedLocations);
+        $locations = new Locations($unsortedLocationsArray);
+        $sortedLocations = $locations->sorted();
 
-        $this->assertEquals($sortedLocations, iterator_to_array($locations->sorted()));
+        $this->assertNotSame($locations, $sortedLocations);
+        $this->assertEquals($sortedLocationsArray, iterator_to_array($sortedLocations));
     }
 
     /**
