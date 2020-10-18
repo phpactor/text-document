@@ -32,7 +32,7 @@ final class Locations implements IteratorAggregate, Countable
      */
     public static function bySorting(iterable $locations, ?callable $sortStrategy = null): self
     {
-        return (new self($locations))->sort($sortStrategy);
+        return (new self($locations))->sorted($sortStrategy);
     }
 
     /**
@@ -76,7 +76,7 @@ final class Locations implements IteratorAggregate, Countable
         return reset($this->locations);
     }
 
-    public function sort(?callable $sortStrategy = null): self
+    public function sorted(?callable $sortStrategy = null): self
     {
         usort($this->locations, $sortStrategy ?: self::defaultSortStrategy());
 

@@ -78,7 +78,7 @@ class LocationsTest extends TestCase
     ): void {
         $locations = new Locations($unsortedLocations);
 
-        $this->assertEquals($sortedLocations, iterator_to_array($locations->sort()));
+        $this->assertEquals($sortedLocations, iterator_to_array($locations->sorted()));
     }
 
     /**
