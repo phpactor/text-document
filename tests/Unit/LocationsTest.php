@@ -50,22 +50,6 @@ class LocationsTest extends TestCase
         ]), $locations);
     }
 
-    public function testCreateSortedLocations(): void
-    {
-        $locationList = [
-            Location::fromPathAndOffset('/path/to.php', 12),
-            Location::fromPathAndOffset('/path/from.php', 13),
-            Location::fromPathAndOffset('/path/to.php', 15),
-        ];
-        $locations = Locations::bySorting($locationList);
-
-        $this->assertEquals([
-            $locationList[1],
-            $locationList[0],
-            $locationList[2],
-        ], iterator_to_array($locations));
-    }
-
     /**
      * @dataProvider provideUnsortedLocations
      *

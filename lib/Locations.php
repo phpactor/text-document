@@ -28,14 +28,6 @@ final class Locations implements IteratorAggregate, Countable
     }
 
     /**
-     * @param iterable<Location> $locations
-     */
-    public static function bySorting(iterable $locations): self
-    {
-        return (new self($locations))->sorted();
-    }
-
-    /**
      * @return ArrayIterator<int,Location>
      */
     public function getIterator(): ArrayIterator
