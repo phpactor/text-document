@@ -30,9 +30,9 @@ final class Locations implements IteratorAggregate, Countable
     /**
      * @param iterable<Location> $locations
      */
-    public static function bySorting(iterable $locations, ?callable $sortStrategy = null): self
+    public static function bySorting(iterable $locations): self
     {
-        return (new self($locations))->sorted($sortStrategy);
+        return (new self($locations))->sorted();
     }
 
     /**
@@ -76,22 +76,17 @@ final class Locations implements IteratorAggregate, Countable
         return reset($this->locations);
     }
 
-    public function sorted(?callable $sortStrategy = null): self
+    public function sorted(): self
     {
-        usort($this->locations, $sortStrategy ?: self::defaultSortStrategy());
-
-        return $this;
-    }
-
-    private static function defaultSortStrategy(): callable
-    {
-        return function (Location $first, Location $second) {
+        usort($this->locations, function (Location $first, Location $second) {
             $order = strcmp((string) $first->uri(), (string) $second->uri());
             if (0 !== $order) {
                 return $order;
             }
 
             return $first->offset()->toInt() - $second->offset()->toInt();
-        };
+        });
+
+        return $this;
     }
 }
