@@ -1,7 +1,7 @@
 Text Document
 =============
 
-[![Build Status](https://travis-ci.org/phpactor/text-document.svg?branch=master)](https://travis-ci.org/phpactor/text-document)
+![CI](https://github.com/phpactor/text-document/workflows/CI/badge.svg)
 
 Collection of value objects for representing and referencing text documents
 (principally source code) for use with [Phpactor](https://phpactor/phpactor).
