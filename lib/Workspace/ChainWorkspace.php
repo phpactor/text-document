@@ -19,7 +19,7 @@ class ChainWorkspace implements Workspace
     /**
      * @var Workspace[]
      */
-    private array $workspaces;
+    private $workspaces;
 
     /**
      * @param Workspace[] $workspaces
