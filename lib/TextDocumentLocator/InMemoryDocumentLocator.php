@@ -1,12 +1,13 @@
 <?php
 
-namespace Phpactor\TextDocument\Workspace;
+namespace Phpactor\TextDocument\TextDocumentLocator;
 
+use Phpactor\TextDocument\Exception\TextDocumentNotFound;
 use Phpactor\TextDocument\TextDocument;
 use Phpactor\TextDocument\TextDocumentUri;
-use Phpactor\TextDocument\Workspace;
+use Phpactor\TextDocument\TextDocumentLocator;
 
-final class InMemoryWorkspace implements Workspace
+final class InMemoryDocumentLocator implements TextDocumentLocator
 {
     /**
      * @var array<string, TextDocument>
@@ -21,13 +22,16 @@ final class InMemoryWorkspace implements Workspace
         $this->documents = $textDocuments;
     }
 
-    public function get(TextDocumentUri $uri): ?TextDocument
+    public function get(TextDocumentUri $uri): TextDocument
     {
         if (isset($this->documents[$uri->__toString()])) {
             return $this->documents[$uri->__toString()];
         }
 
-        return null;
+        throw new TextDocumentNotFound(sprintf(
+            'Could not find document "%s"',
+            $uri->__toString()
+        ));
     }
 
     /**
@@ -43,13 +47,5 @@ final class InMemoryWorkspace implements Workspace
     public static function new(): self
     {
         return new self([]);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function save(TextDocument $document): void
-    {
-        $this->documents[$document->uri()->__toString()] = $document;
     }
 }
