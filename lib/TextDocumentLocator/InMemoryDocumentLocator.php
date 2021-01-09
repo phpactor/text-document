@@ -28,10 +28,7 @@ final class InMemoryDocumentLocator implements TextDocumentLocator
             return $this->documents[$uri->__toString()];
         }
 
-        throw new TextDocumentNotFound(sprintf(
-            'Could not find document "%s"',
-            $uri->__toString()
-        ));
+        throw TextDocumentNotFound::fromUri($uri);
     }
 
     /**
