@@ -34,9 +34,6 @@ class ChainDocumentLocator implements TextDocumentLocator
             }
         }
 
-        throw new TextDocumentNotFound(sprintf(
-            'Could not find document "%s"',
-            $uri->__toString()
-        ));
+        throw TextDocumentNotFound::fromUri($uri);
     }
 }
