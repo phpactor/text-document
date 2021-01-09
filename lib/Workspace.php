@@ -5,8 +5,7 @@ namespace Phpactor\TextDocument;
 use Phpactor\TextDocument\Exception\CouldNotSaveDocument;
 
 /**
- * Represents a workspace to which documents can be retrived to and persisted
- * from.
+ * Represents a workspace to which documents can be persisted and retrieved
  */
 interface Workspace
 {
