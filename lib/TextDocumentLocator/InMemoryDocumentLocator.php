@@ -36,7 +36,8 @@ final class InMemoryDocumentLocator implements TextDocumentLocator
      */
     public static function fromTextDocuments(array $textDocuments): self
     {
-        return new self((array)array_combine(array_map(function (TextDocument $document) {
+        /** @phpstan-ignore-next-line */
+        return new self((array)array_combine(array_map(function (TextDocument $document): string {
             return $document->uri()->__toString();
         }, $textDocuments), array_values($textDocuments)));
     }

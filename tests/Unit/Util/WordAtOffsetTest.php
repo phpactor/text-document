@@ -96,5 +96,18 @@ class WordAtOffsetTest extends TestCase
             'Request',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
+        yield 'constant' => [
+            <<<'EOT'
+    /**
+     * @SWG\Post(
+     *     @SWG\Response(
+     *         response=Resp<>onse::HTTP_OK,
+     *         description="Reset password sent successfully"
+     * )
+     */
+EOT
+            , 'Response',
+            WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
+        ];
     }
 }
