@@ -43,17 +43,17 @@ class LineColTest extends TestCase
         ];
 
         yield 'multi-byte 1' => [
-            "ᅑa",
+            'ᅑa',
             new LineCol(1, 2),
             3,
-            "ᅑ",
+            'ᅑ',
         ];
 
         yield 'multi-byte 2' => [
-            "ᅑacd",
+            'ᅑacd',
             new LineCol(1, 3),
             4,
-            "ᅑa"
+            'ᅑa'
         ];
 
         yield 'multi-byte 3' => [

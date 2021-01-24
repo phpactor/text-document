@@ -12,7 +12,7 @@ class TextEditsTest extends TestCase
     /**
      * @dataProvider provideMerge
      */
-    public function testMerge(array $edits1, array $edits2, array $expectedEdits)
+    public function testMerge(array $edits1, array $edits2, array $expectedEdits): void
     {
         self::assertEquals(
             TextEdits::fromTextEdits($expectedEdits),

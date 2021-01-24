@@ -7,7 +7,7 @@ use Phpactor\TextDocument\TextDocumentLanguage;
 
 class TextDocumentLanguageTest extends TestCase
 {
-    public function testCreate()
+    public function testCreate(): void
     {
         $language = TextDocumentLanguage::fromString('php');
         $this->assertEquals('php', (string) $language);
@@ -20,7 +20,7 @@ class TextDocumentLanguageTest extends TestCase
         $this->assertFalse($language->in(['c', 'cobol']));
     }
 
-    public function testCreateUndefined()
+    public function testCreateUndefined(): void
     {
         $language = TextDocumentLanguage::undefined();
         $this->assertFalse($language->isDefined());
