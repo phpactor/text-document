@@ -23,6 +23,11 @@ class TextDocumentUri
         $this->path = $path;
     }
 
+    public function __toString(): string
+    {
+        return sprintf('%s://%s', $this->scheme, $this->path);
+    }
+
     public static function fromString(string $uri): self
     {
         $components = parse_url($uri);
@@ -59,11 +64,6 @@ class TextDocumentUri
             'file',
             $components['path']
         );
-    }
-
-    public function __toString(): string
-    {
-        return sprintf('%s://%s', $this->scheme, $this->path);
     }
 
     public function path(): string

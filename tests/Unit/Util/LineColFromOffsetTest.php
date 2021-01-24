@@ -68,11 +68,11 @@ class LineColFromOffsetTest extends TestCase
 
         yield '4 lines with special chars' => [
             <<<'EOT'
-h转llo
-goodbye
-h转llo
-goodbye
-EOT
+                h转llo
+                goodbye
+                h转llo
+                goodbye
+                EOT
         ,
             26,
             4,
@@ -80,7 +80,7 @@ EOT
         ];
     }
 
-    public function testExceptionWhenOutOfBounds()
+    public function testExceptionWhenOutOfBounds(): void
     {
         $this->expectException(OutOfBoundsException::class);
         $lineCol = (new LineColFromOffset())('asd', 10);

@@ -11,7 +11,7 @@ class WordAtOffsetTest extends TestCase
     /**
      * @dataProvider provideWordAtOffset
      */
-    public function testWordAtOffset(string $text, string $expectedWord, $split = WordAtOffset::SPLIT_WORD)
+    public function testWordAtOffset(string $text, string $expectedWord, $split = WordAtOffset::SPLIT_WORD): void
     {
         [ $text, $offset ] = ExtractOffset::fromSource($text);
 
@@ -54,7 +54,7 @@ class WordAtOffsetTest extends TestCase
             ' ',
         ];
         yield [
-            "Reque<>st;",
+            'Reque<>st;',
             'Request',
         ];
         yield [
@@ -67,45 +67,45 @@ class WordAtOffsetTest extends TestCase
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
         yield 'nullable type' => [
-            "?Reque<>st;",
+            '?Reque<>st;',
             'Request',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
         yield 'trailing comma' => [
-            "Reque<>st,",
+            'Reque<>st,',
             'Request',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
         yield 'pipe type separator' => [
-            "Reque<>st|null,",
+            'Reque<>st|null,',
             'Request',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
         yield 'annotations' => [
-            "@Reque<>st",
+            '@Reque<>st',
             'Request',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
         yield 'subannotations (removing equal)' => [
-             "* input=Re<>quest::class",
+             '* input=Re<>quest::class',
             'Request',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
         yield 'templated type' => [
-             "array<Re<>quest>",
+             'array<Re<>quest>',
             'Request',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];
         yield 'constant' => [
             <<<'EOT'
-    /**
-     * @SWG\Post(
-     *     @SWG\Response(
-     *         response=Resp<>onse::HTTP_OK,
-     *         description="Reset password sent successfully"
-     * )
-     */
-EOT
+                    /**
+                     * @SWG\Post(
+                     *     @SWG\Response(
+                     *         response=Resp<>onse::HTTP_OK,
+                     *         description="Reset password sent successfully"
+                     * )
+                     */
+                EOT
             , 'Response',
             WordAtOffset::SPLIT_QUALIFIED_PHP_NAME
         ];

@@ -45,13 +45,6 @@ final class Locations implements IteratorAggregate, Countable
         return new self($newLocations);
     }
 
-    private function add(Location $location): self
-    {
-        $this->locations[] = $location;
-
-        return $this;
-    }
-
     public function count(): int
     {
         return count($this->locations);
@@ -82,5 +75,12 @@ final class Locations implements IteratorAggregate, Countable
         });
 
         return new self($sortedLocations);
+    }
+
+    private function add(Location $location): self
+    {
+        $this->locations[] = $location;
+
+        return $this;
     }
 }

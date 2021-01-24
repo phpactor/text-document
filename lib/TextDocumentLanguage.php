@@ -17,6 +17,11 @@ class TextDocumentLanguage
         $this->language = $language;
     }
 
+    public function __toString(): string
+    {
+        return $this->language;
+    }
+
     public static function fromString(string $language): self
     {
         return new self($language);
@@ -48,10 +53,5 @@ class TextDocumentLanguage
     public function isPhp(): bool
     {
         return $this->is(self::LANGUAGE_PHP);
-    }
-
-    public function __toString(): string
-    {
-        return $this->language;
     }
 }

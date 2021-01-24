@@ -12,7 +12,7 @@ class LineAtOffsetTest extends TestCase
     /**
      * @dataProvider provideLineAtOffset
      */
-    public function testLineAtOffset(string $text, string $expectedWord)
+    public function testLineAtOffset(string $text, string $expectedWord): void
     {
         [ $text, $offset ] = ExtractOffset::fromSource($text);
 
@@ -35,44 +35,44 @@ class LineAtOffsetTest extends TestCase
         ];
         yield 'offset is newline' => [
             "hello this is\n<>",
-            "hello this is",
+            'hello this is',
         ];
         yield [
             <<<'EOT'
-<?php
+                <?php
 
-Hello
-Thi<>s is my line
+                Hello
+                Thi<>s is my line
 
-Thanks
-EOT
+                Thanks
+                EOT
             , 'This is my line',
         ];
         yield 'multibyte 1' => [
             <<<'EOT'
-<?php
+                <?php
 
-转注字 / 轉注字
-转<>注字 / 轉注字
+                转注字 / 轉注字
+                转<>注字 / 轉注字
 
-Thanks
-EOT
+                Thanks
+                EOT
             , '转注字 / 轉注字',
         ];
         yield 'multibyte 2' => [
             <<<'EOT'
-<?php
+                <?php
 
-转注字 / 轉注字
-转注字 / 轉注字<>
+                转注字 / 轉注字
+                转注字 / 轉注字<>
 
-Thanks
-EOT
+                Thanks
+                EOT
             , '转注字 / 轉注字',
         ];
     }
 
-    public function testOutOfRange()
+    public function testOutOfRange(): void
     {
         $this->expectException(OutOfBoundsException::class);
         (new LineAtOffset())('a', 2);
