@@ -13,7 +13,7 @@ class LineColRangeForLineTest extends TestCase
     /**
      * @dataProvider provideRangeForLine
      */
-    public function testRangeForLine(string $text, int $lineNo, LineColRange $expected)
+    public function testRangeForLine(string $text, int $lineNo, LineColRange $expected): void
     {
         self::assertEquals($expected, (new LineColRangeForLine())->rangeFromLine($text, $lineNo));
     }
