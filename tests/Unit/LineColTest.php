@@ -63,4 +63,11 @@ class LineColTest extends TestCase
             "ᅑ\na"
         ];
     }
+
+    public function testOutOfBoundsToByteOffset(): void
+    {
+        $lineCol = new LineCol(10, 20);
+        assert($lineCol instanceof LineCol);
+        self::assertEquals(13, $lineCol->toByteOffset("foobar\nbarfoo")->toInt());
+    }
 }

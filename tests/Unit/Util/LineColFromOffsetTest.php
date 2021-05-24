@@ -3,7 +3,6 @@
 namespace Phpactor\TextDocument\Tests\Unit\Util;
 
 use Generator;
-use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 use Phpactor\TextDocument\LineCol;
 use Phpactor\TextDocument\Util\LineColFromOffset;
@@ -80,9 +79,15 @@ class LineColFromOffsetTest extends TestCase
         ];
     }
 
-    public function testExceptionWhenOutOfBounds(): void
+    public function testOutOfBoundsLineCol(): void
     {
-        $this->expectException(OutOfBoundsException::class);
-        $lineCol = (new LineColFromOffset())('asd', 10);
+        $lineCol = (new LineColFromOffset())(<<<'EOT'
+            foo
+            bar
+            EOT
+        , 10);
+        assert($lineCol instanceof LineCol);
+        self::assertEquals(2, $lineCol->line());
+        self::assertEquals(4, $lineCol->col());
     }
 }

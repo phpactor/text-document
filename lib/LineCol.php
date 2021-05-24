@@ -79,17 +79,15 @@ final class LineCol
             $offset += strlen((string)$lineOrDelim);
         }
 
-        throw new OutOfBoundsException(sprintf(
-            'Position %s:%s is larger than text length %s: %s',
-            $this->line(),
-            $this->col(),
-            strlen($text),
-            $text
-        ));
+        return ByteOffset::fromInt(strlen($text));
     }
 
     public static function fromByteOffset(string $text, ByteOffset $byteOffset): self
     {
+        if ($byteOffset->toInt() > strlen($text)) {
+            $byteOffset = ByteOffset::fromInt(strlen($text));
+        }
+
         $lines = preg_split('{(' . self::NEWLINE_PATTERN . ')}', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
 
         if (false === $lines) {
