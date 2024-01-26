@@ -2,6 +2,7 @@
 
 namespace Phpactor\TextDocument\Tests\Unit\Util;
 
+use Generator;
 use PHPUnit\Framework\TestCase;
 use Phpactor\TestUtils\ExtractOffset;
 use Phpactor\TextDocument\Util\WordAtOffset;
@@ -11,14 +12,18 @@ class WordAtOffsetTest extends TestCase
     /**
      * @dataProvider provideWordAtOffset
      */
-    public function testWordAtOffset(string $text, string $expectedWord, $split = WordAtOffset::SPLIT_WORD): void
+    public function testWordAtOffset(string $text, string $expectedWord, string $split = WordAtOffset::SPLIT_WORD): void
     {
         [ $text, $offset ] = ExtractOffset::fromSource($text);
+        $offset = (int)$offset;
 
         $this->assertEquals($expectedWord, (new WordAtOffset($split))($text, $offset));
     }
 
-    public function provideWordAtOffset()
+    /**
+     * @return Generator<mixed>
+     */
+    public function provideWordAtOffset(): Generator
     {
         yield [
             'hello thi<>s is',

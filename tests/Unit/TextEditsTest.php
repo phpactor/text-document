@@ -11,6 +11,9 @@ class TextEditsTest extends TestCase
 {
     /**
      * @dataProvider provideMerge
+     * @param TextEdit[] $edits1
+     * @param TextEdit[] $edits2
+     * @param TextEdit[] $expectedEdits
      */
     public function testMerge(array $edits1, array $edits2, array $expectedEdits): void
     {
@@ -22,7 +25,8 @@ class TextEditsTest extends TestCase
         );
     }
 
-    public function provideMerge()
+
+    public function provideMerge(): Generator
     {
         yield 'empty' => [
             [

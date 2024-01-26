@@ -5,6 +5,7 @@ namespace Phpactor\TextDocument\Tests\Unit\TextDocumentLocator;
 use PHPUnit\Framework\TestCase;
 use Phpactor\TextDocument\Exception\TextDocumentNotFound;
 use Phpactor\TextDocument\TextDocumentBuilder;
+use Phpactor\TextDocument\TextDocumentLocator;
 use Phpactor\TextDocument\TextDocumentUri;
 use Phpactor\TextDocument\TextDocumentLocator\ChainDocumentLocator;
 use Phpactor\TextDocument\TextDocumentLocator\InMemoryDocumentLocator;
@@ -14,12 +15,7 @@ class ChainDocumentLocatorTest extends TestCase
     public function testThrowsExceptionWhenNotFound(): void
     {
         $this->expectException(TextDocumentNotFound::class);
-
-        self::assertNull(
-            $this->createWorkspace()->get(
-                TextDocumentUri::fromString('file:///foobar')
-            )
-        );
+        $this->createWorkspace()->get(TextDocumentUri::fromString('file:///foobar'));
     }
 
     public function testReturnsTextDocument(): void
@@ -55,7 +51,7 @@ class ChainDocumentLocatorTest extends TestCase
     }
 
     /**
-     * @param Workspace[] $workspaces
+     * @param TextDocumentLocator[] $workspaces
      */
     private function createWorkspace(array $workspaces = []): ChainDocumentLocator
     {
